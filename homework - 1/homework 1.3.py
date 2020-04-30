@@ -8,6 +8,6 @@ print(f"First list: {first_list}")
 for number in first_list:
     if number == x:
         second_list.insert(0, number)
-    if number > x or number < x:
+    if number != x:
         second_list.append(number)
 print(f"\nYour right list is: {second_list}  Congratulations!")
