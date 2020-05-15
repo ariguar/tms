@@ -1,10 +1,17 @@
-# from datetime import date
-#
-# d1 = date.today()
-# print(d1)
 import calendar
-year = int(input('Enter a year: '))
-month = int(input('Enter a month: '))
-day = int(input('Enter a day: '))
-birthday_date = calendar.weekday(year, month, day)
-print(calendar.day_name[birthday_date])
+from datetime import datetime
+dayWeek = int(input('Enter day of the week: '))
+
+now = datetime.now()
+month = now.month
+year = now.year
+
+while True:
+    x = calendar.weekday(year, month, 1)
+    if x == dayWeek:
+        print(year, month)
+        break
+    month -= 1
+    if month == 0:
+        year -= 1
+        month = 12
