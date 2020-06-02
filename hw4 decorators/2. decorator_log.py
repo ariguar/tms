@@ -1,6 +1,14 @@
+def concat(*args):
+    for arg in args:
+        yield from arg
+
+
 def log(func):
-    def wrapper(d, *args):
-        print(func.__name__,  func(d, *args))
+    def wrapper(*args, **kwargs):
+        r = func(*args, **kwargs)
+        agr_str = ', '.join(concat(map(str, args), map(lambda x: f'{x[0]}= {x[1]}', kwargs.items())))
+        print(f'{func.__name__}({agr_str}) --> {r}')
+        return r
 
     return wrapper
 
@@ -24,8 +32,8 @@ def c(x, y, *args):
 
 
 a(999)
-b(-5, 6)
-c(28, 10, 2, 69, 11)
+b(-5, y=6)
+c(28, 10, 2)
 
 # def log(a):
 #     def wrapper(num):
