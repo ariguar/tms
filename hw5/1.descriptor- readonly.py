@@ -1,19 +1,12 @@
 class Readonly(object):
-    def __init__(self, fget=None, fset=None):
-        self.fget = fget
-        self.fset = fset
+    def __init__(self, func):
+        self.func = func
 
-    def __get__(self, obj, objtype=None):
-        if obj is None:
-            return self
-        if self.fget is None:
-            raise AttributeError
-        return self.fget(obj)
+    def __get__(self, instance, owner):
+        return self.func(instance)
 
-    def __set__(self, obj, value):
-        if self.fset is None:
-            raise AttributeError
-        self.fset(obj, value)
+    def __set__(self, instance, value):
+        raise AttributeError()
 
 
 class Test(object):
@@ -28,13 +21,3 @@ class Test(object):
 test = Test()
 print(test.val)  # OK, выводит 1
 test.val = 2  # AttributeError
-
-# class Readonly(object):
-#     def __init__(self, change):
-#         self.change = change
-#
-#     def __get__(self, instance, owner):
-#         return self.change(instance)
-#
-#     def __set__(self, instance, value):
-#         return self.change(value)
